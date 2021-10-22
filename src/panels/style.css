@@ -1,0 +1,72 @@
+:root {
+    --accent: null;
+}
+
+.FixedLayout__in {
+    background-color: #007151;
+}
+
+.Header__in,
+.Group,
+.Separator,
+.Panel .Panel__in,
+.Panel::after,
+.Tabs__in,
+.TabsItem__in,
+.Card {
+    background-color: #007151;
+}
+
+.RichCell,
+.Tappable--ios .Tappable--active {
+    background-color: #007160;
+}
+
+.Text,
+.Cell--ios .Cell__main {
+    color: #dcdec3;
+}
+
+.Button__in,
+.Button--sz-m,
+.Link,
+.Placeholder__header {
+    color: #dad0c2;
+}
+.Button--lvl-outline {
+    border: 1px solid #dad0c2;
+}
+.Tabs--default .TabsItem--selected {
+    color: #a5eaa5;
+}
+
+.Tappable .TabsItem__in {
+    border: 1px solid #fff;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.Tappable--ios.Tappable--active:not([disabled]):not(.TabsItem):not(.PanelHeaderButton):not(.Button):not(.PanelHeaderContent__in):not(.ActionSheetItem):not(.Banner__in) {
+    background: #007160;
+}
+
+.cellCart {
+    background: linear-gradient(
+            0.25turn,
+            #007151,
+            #3a9596,
+            #25b183,
+            #007151
+    ) !important;
+}
+.vkuiPanelHeader__in {
+    height: 56px !important;
+    background-color: #007160 !important;
+}
+
+.PanelHeader__content {
+    background: url(https://zoomagasin.ru/images/im-top-logo-mobile.png) no-repeat
+    center;
+    height: 100%;
+    width: 100%;
+}

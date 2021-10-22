@@ -1,17 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import bridge from "@vkontakte/vk-bridge";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import { reducer } from "./store/reducer";
+const store = createStore(reducer);
+
+// Init VK  Mini App
+bridge.send("VKWebAppInit");
+let linkParams = window.location.hash
+    .replace("#", "")
+    .split("&")
+    .reduce(function (p:any, e) {
+        let a = e.split("=");
+        p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+        return p;
+    }, {});
+let params = window.location.search
+    .replace("?", "")
+    .split("&")
+    .reduce(function (p:any, e) {
+        let a = e.split("=");
+        p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+        return p;
+    }, {});
 
 ReactDOM.render(
+    <Provider store={store}>
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <App linkParams={linkParams} params={params}/>
+  </React.StrictMode>
+    </Provider>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
