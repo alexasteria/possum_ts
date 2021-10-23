@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
-import {Category, Product, ProductElement, ReduxState} from "../../types";
+import {Category, Product, ReduxState} from "../../types";
 
 type UseGetProdProps = {
     products: Product[] | null,
@@ -54,23 +54,12 @@ const useGetProducts: () => UseGetProdProps = () => {
         setFil(arr);
     };
 
-    // const getPrice = (elements: ProductElement[]) => {
-    //     const count = 4;
-    //     const e = elements.find((el) => el.active === true);
-    //     const price = e.prices.items.find(p=>p.quantity_from === null);
-    //     if (price.discount_price){
-    //         return {price: price.discount_price, sale: `${price.discount_value_percents}%`}
-    //     }
-    //     return {price: price.price, sale: null}
-    // }
-
     return {
         products,
         targetCat,
         categories,
         changeFilter,
         fil,
-       // getPrice,
     };
 };
 export { useGetProducts };

@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from "react";
 import { ConfigProvider, View } from "@vkontakte/vkui";
 import bridge, { UserInfo } from "@vkontakte/vk-bridge";
 import { useDispatch } from "react-redux";
-import { setCategoriesList } from "./store/actions";
+import {setCategoriesList, setVkParams} from "./store/actions";
 import Home from "./panels/home";
 import "@vkontakte/vkui/dist/vkui.css";
 import Category from "./panels/category";
@@ -16,14 +16,16 @@ type AppProps = {
   params: any;
 };
 
-const App: React.FC<AppProps> = () => {
+const App: React.FC<AppProps> = ({params}) => {
   const dispatch = useDispatch();
   const [activePanel, setActivePanel] = useState<string>("home");
   const [popout, setPopout] = useState(null);
   const [history, setHistory] = useState<string[]>(["home"]);
   const [fetchedUser, setUser] = useState<UserInfo | null>(null);
   const [activeProduct, setActiveProduct] = useState<Product | null>(null)
-
+  useEffect(()=>{
+    dispatch(setVkParams(params))
+  },[dispatch, params])
   const go = useCallback((panelName: string) => {
     const hist = [...history];
     hist.push(panelName);

@@ -40,23 +40,21 @@ const CartListProducts: React.FC<CartListProductsProps> = ({
     if (elements.length === 1) return null;
     return elements.map((item, index) => {
       return item.properties?.map((p) => {
-        if (ProductProps[p.property_id]) {
-          if (item.item && item.item.available !== "N" && p.value !== null)
-            return (
-              <button
+        if (!ProductProps[p.property_id] || item.item.available === "N" || !p.value) return null;
+        return (
+            <button
                 onClick={() =>
-                  changeElementVariant(order.items[key].item, index)
+                    changeElementVariant(order.items[key].item, index)
                 }
                 style={{
                   color: item.active ? "#41ca41" : "#000",
                   float: "left",
                   margin: "auto",
                 }}
-              >
-                {p.value}
-              </button>
-            );
-        }
+            >
+              {p.value}
+            </button>
+        );
       });
     });
   };

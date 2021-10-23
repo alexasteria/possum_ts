@@ -27,6 +27,7 @@ const Pay: React.FC<{
   const [userPhone, setUserPhone] = useState("");
   const [payLink, setPayLink] = useState(null);
   const deliveryInfo = useSelector((state: ReduxState) => state.deliveryInfo);
+  const params = useSelector((state: ReduxState) => state.vkParams);
   const dPrice = useMemo(() => {
     if (!deliveryInfo) return 0;
     if (typeDelivery === DeliveryTypes.SDEK) {
@@ -57,9 +58,9 @@ const Pay: React.FC<{
   const pay = async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
     try {
-      if (userName === "") throw "Не указаны ФИО получателя посылки";
-      if (userPhone === "") throw "Не указан номер телефона";
-      if (userAddress === "") throw "Не указан адрес доставки";
+      if (userName === "") throw Error("Не указаны ФИО получателя посылки");
+      if (userPhone === "") throw Error("Не указан номер телефона");
+      if (userAddress === "") throw Error("Не указан адрес доставки");
       let description = "";
       for (let key in order.items) {
         const e = order.items[key].item.elements.filter(
@@ -126,10 +127,10 @@ const Pay: React.FC<{
       };
       const orders_success = {
         sum: Math.round(orderSumWithDelivery),
-        //user: Number(params.vk_user_id),
+        user: Number(params.vk_user_id),
         num: date,
         jsonParams: jsonParams,
-        //params: params,
+        params: params,
       };
       //saharnypossum.herokuapp.com
       const response = await fetch(
@@ -159,7 +160,7 @@ const Pay: React.FC<{
     } catch (e) {
       setSnackbar(
         <Snackbar layout="vertical" onClose={() => setSnackbar(null)}>
-          {e as string}
+          {(e as Error).message}
         </Snackbar>
       );
     }
@@ -205,6 +206,7 @@ const Pay: React.FC<{
             id="payLink"
             href={payLink || undefined}
             onClick={clearCart}
+            rel="noreferrer"
           >
             <div
               style={{

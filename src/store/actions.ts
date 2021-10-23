@@ -4,6 +4,13 @@ export const GET_CATEGORIES = "GET_CATEGORIES";
 export const SET_CATEGORY = "SET_CATEGORY";
 export const SET_DELIVERY_CITY = "SET_DELIVERY_CITY"
 export const SET_DELIVERY_INFO = "SET_DELIVERY_INFO"
+export const SET_VK_PARAMS = "SET_VK_PARAMS"
+export const setVkParams: (params: any) => void = (params) => {
+  return {
+    type: SET_VK_PARAMS,
+    payload: params,
+  };
+};
 export const setDeliveryInfo: (info: DeliveryInfo) => void = (info) => {
   return {
     type: SET_DELIVERY_INFO,
@@ -49,5 +56,9 @@ export interface SetDelivInfo {
   type: typeof SET_DELIVERY_INFO;
   payload: DeliveryInfo;
 }
+export interface SetVkParams {
+  type: typeof SET_VK_PARAMS;
+  payload: any;
+}
 
-export type Action = SetCarList | SetTargetCat | SetDelivCity | SetDelivInfo
+export type Action = SetCarList | SetTargetCat | SetDelivCity | SetDelivInfo | SetVkParams
