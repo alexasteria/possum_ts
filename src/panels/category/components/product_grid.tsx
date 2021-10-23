@@ -142,11 +142,11 @@ const ProductsGrid: React.FC<ProductGridProps> = ({ setActiveItem, go }) => {
                                         <Button
                                             onClick={() => {
                                                 setActiveItem(item);
-                                                go("aboutItem");
+                                                go("aboutProduct");
                                             }}
                                             size="m"
                                             stretched
-                                            mode="outline"
+                                            mode="overlay_secondary"
                                         >
                                             Подробнее
                                         </Button>

@@ -38,15 +38,12 @@ const AboutProduct: React.FC<AboutProductProps> = ({ id, go, activeItem }) => {
       </Snackbar>
     );
   }, [message]);
-    if (!activeItem) return null;
+  if (!activeItem) return null;
   return (
     <Panel id={id}>
       <PanelHeader left={<PanelHeaderBack onClick={() => go("category")} />} />
-      <CartLine go={go} order={order}/>
-      <Group
-        style={{ paddingTop: 50 }}
-        header={<Header mode="secondary">Информация о товаре</Header>}
-      >
+      <CartLine go={go} order={order} />
+      <Group style={{ paddingTop: 50 }} title="Информация о товаре">
         {activeItem.image_url && (
           <img
             style={{ width: "100%" }}
@@ -55,19 +52,27 @@ const AboutProduct: React.FC<AboutProductProps> = ({ id, go, activeItem }) => {
           />
         )}
       </Group>
-      <Div>
+      <Card>
         <CardGrid>
           <Card size="l">
-            <MiniInfoCell textWrap={"full"} before={null}>
-              <Title level="1" weight="semibold" style={{ marginBottom: 16 }}>
-                {activeItem.name}
-              </Title>
-            </MiniInfoCell>
-            {getElements(activeItem.elements)}
+            <Div style={{
+              backgroundColor: "#03825e",
+              borderRadius: 10,
+              color: "antiquewhite",
+            }}>
+              <MiniInfoCell textWrap={"full"} before={null}>
+                <Title level="1" weight="semibold" style={{ marginBottom: 16 }}>
+                  {activeItem.name}
+                </Title>
+              </MiniInfoCell>
+              {getElements(activeItem.elements)}
+            </Div>
+          </Card>
+          <Card size="l">
             <Button
-              size="xl"
-              onClick={() => onIncrementPosition(activeItem)}
-              mode={"outline"}
+                size="xl"
+                onClick={() => onIncrementPosition(activeItem)}
+                mode="commerce"
             >
               Добавить в корзину
             </Button>
@@ -84,7 +89,7 @@ const AboutProduct: React.FC<AboutProductProps> = ({ id, go, activeItem }) => {
             </Div>
           </Card>
         </CardGrid>
-      </Div>
+      </Card>
       <Footer />
       {snackbar}
     </Panel>
