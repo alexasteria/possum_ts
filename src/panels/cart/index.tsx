@@ -73,7 +73,7 @@ const Cart: React.FC<CartProps> = ({ id, go, goBack }) => {
   return (
     <Panel id={id}>
       <PanelHeader left={<PanelHeaderBack onClick={() => go("home")} />} />
-      <Cell expandable onClick={() => go("AllOrders")}>
+      <Cell expandable onClick={() => go("userOrders")}>
         Оплаченные заказы
       </Cell>
       <CartListProductsProps
