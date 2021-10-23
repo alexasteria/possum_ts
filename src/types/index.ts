@@ -141,3 +141,21 @@ export type DeliveryInfo = {
     deliveryDateMax: string;
   };
 };
+
+export type SuccessOrder = {
+  _id: string;
+  sum: number;
+  user: number;
+  num: number;
+  jsonParams: {
+    order: {[key: number]: string};
+    info: {[key: string]: string};
+    contacts: {
+      address: string;
+      phone: string;
+      name: string;
+    };
+  };
+  status: string;
+  track: string;
+};

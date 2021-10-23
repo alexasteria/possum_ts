@@ -10,6 +10,9 @@ import Cart from "./panels/cart/index"
 import {Product} from "./types";
 import AboutProduct from "./panels/about_product";
 import CityList from "./panels/city_list"
+import AdminOrders from "./panels/admin_orders";
+import moment from "moment";
+import UserOrders from "./panels/user_orders";
 
 type AppProps = {
   linkParams: any;
@@ -17,6 +20,7 @@ type AppProps = {
 };
 
 const App: React.FC<AppProps> = ({params}) => {
+  moment.locale("ru");
   const dispatch = useDispatch();
   const [activePanel, setActivePanel] = useState<string>("home");
   const [popout, setPopout] = useState(null);
@@ -70,6 +74,8 @@ const App: React.FC<AppProps> = ({params}) => {
         <AboutProduct id="aboutProduct" go={go} activeItem={activeProduct}/>
         <Cart id="cart" go={go} goBack={goBack}/>
         <CityList id="cityList" goBack={goBack}/>
+        <AdminOrders go={go} id="adminOrders" fetchedUser={fetchedUser}/>
+        <UserOrders id="userOrders" goBack={goBack}/>
       </View>
     </ConfigProvider>
   );

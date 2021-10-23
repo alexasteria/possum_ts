@@ -145,7 +145,7 @@ const Home:React.FC<HomeProps>= ({ id, go, fetchedUser }) => {
                 />
                 { fetchedUser && (fetchedUser.id === 199500866 || fetchedUser.id === 15937415) ?
                     <Div>
-                        <Button size="l" mode="outline" stretched onClick={()=>go("get_orders")}>Мои заказы</Button>
+                        <Button size="l" mode="outline" stretched onClick={()=>go("adminOrders")}>Управление заказами</Button>
                     </Div> : null
                 }
                 <Footer />
