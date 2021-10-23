@@ -9,6 +9,7 @@ import Category from "./panels/category";
 import Cart from "./panels/cart/index"
 import {Product} from "./types";
 import AboutProduct from "./panels/about_product";
+import CityList from "./panels/city_list"
 
 type AppProps = {
   linkParams: any;
@@ -66,6 +67,7 @@ const App: React.FC<AppProps> = () => {
         <Category id="category" go={go} setActiveProduct={setActiveProduct}/>
         <AboutProduct id="aboutProduct" go={go} activeItem={activeProduct}/>
         <Cart id="cart" go={go} goBack={goBack}/>
+        <CityList id="cityList" goBack={goBack}/>
       </View>
     </ConfigProvider>
   );

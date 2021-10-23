@@ -8,11 +8,18 @@ import {
   Footer,
   Cell,
   Snackbar,
+  Div,
+  MiniInfoCell,
+  Counter,
+  Group,
+  Header,
 } from "@vkontakte/vkui";
 import "../style.css";
 import Icon56ArticleOutline from "@vkontakte/icons/dist/56/article_outline";
 import CartListProductsProps from "./components/cart_list_products";
 import { useCart } from "../hooks/use_cart";
+import {useSelector} from "react-redux";
+import {ReduxState} from "../../types";
 
 type CartProps = {
   id: string;
@@ -22,6 +29,7 @@ type CartProps = {
 
 const Cart: React.FC<CartProps> = ({ id, go, goBack }) => {
   const [snackbar, setSnackbar] = useState<ReactElement | null>(null);
+    const deliveryCity = useSelector((state: ReduxState) => state.deliveryCity);
   const {
     order,
     message,
@@ -73,78 +81,78 @@ const Cart: React.FC<CartProps> = ({ id, go, goBack }) => {
         onDecrementPosition={onDecrementPosition}
         onDeletePosition={onDeletePosition}
       />
-      {/*<Fragment>*/}
-      {/*    <Div>*/}
-      {/*        <MiniInfoCell*/}
-      {/*            after={<Counter>{order.meta ? order.meta.count : 0}</Counter>}*/}
-      {/*        >*/}
-      {/*            Товаров (штуки)*/}
-      {/*        </MiniInfoCell>*/}
-      {/*        <MiniInfoCell*/}
-      {/*            after={<Counter>{order.meta ? order.meta.sum : 0}</Counter>}*/}
-      {/*        >*/}
-      {/*            Сумма (рубли)*/}
-      {/*        </MiniInfoCell>*/}
-      {/*    </Div>*/}
-      {/*    <Group header={<Header mode="secondary">Доставка</Header>}>*/}
-      {/*        <Cell*/}
-      {/*            expandable*/}
-      {/*            onClick={() => go("GetCityList")}*/}
-      {/*            indicator={activeCity !== null ? activeCity.name : "Не выбрано"}*/}
-      {/*        >*/}
-      {/*            Город*/}
-      {/*        </Cell>*/}
-      {/*        {deliv !== null && (*/}
-      {/*            <Div>*/}
-      {/*                <Tabs>*/}
-      {/*                    <TabsItem*/}
-      {/*                        onClick={() => setWho("sdek")}*/}
-      {/*                        selected={who === "sdek"}*/}
-      {/*                    >*/}
-      {/*                        СДЭК*/}
-      {/*                    </TabsItem>*/}
-      {/*                    <TabsItem*/}
-      {/*                        onClick={() => setWho("PR")}*/}
-      {/*                        selected={who === "PR"}*/}
-      {/*                    >*/}
-      {/*                        Почта России*/}
-      {/*                    </TabsItem>*/}
-      {/*                </Tabs>*/}
-      {/*                {who === "sdek" ? (*/}
-      {/*                    <Delivery*/}
-      {/*                        activeCity={activeCity}*/}
-      {/*                        who={who}*/}
-      {/*                        fetchedUser={fetchedUser}*/}
-      {/*                        order={order}*/}
-      {/*                        typeDelivery={typeDelivery}*/}
-      {/*                        go={go}*/}
-      {/*                        activePVZ={activePVZ}*/}
-      {/*                        deliv={deliv.sdek}*/}
-      {/*                        sum={order.meta.sum}*/}
-      {/*                        clearCart={clearCart}*/}
-      {/*                        setOrders_success={setOrders_success}*/}
-      {/*                        params={params}*/}
-      {/*                    />*/}
-      {/*                ) : (*/}
-      {/*                    <Delivery*/}
-      {/*                        activeCity={activeCity}*/}
-      {/*                        who={who}*/}
-      {/*                        fetchedUser={fetchedUser}*/}
-      {/*                        order={order}*/}
-      {/*                        typeDelivery={typeDelivery}*/}
-      {/*                        go={go}*/}
-      {/*                        activePVZ={activePVZ}*/}
-      {/*                        deliv={deliv.PR}*/}
-      {/*                        sum={order.meta.sum}*/}
-      {/*                        clearCart={clearCart}*/}
-      {/*                        setOrders_success={setOrders_success}*/}
-      {/*                        params={params}*/}
-      {/*                    />*/}
-      {/*                )}*/}
-      {/*            </Div>*/}
-      {/*        )}*/}
-      {/*    </Group>*/}
-      {/*</Fragment>*/}
+      <>
+        <Div>
+          <MiniInfoCell
+            before={null}
+            after={<Counter>{order.meta ? order.meta.count : 0}</Counter>}
+          >
+            Товаров (штуки)
+          </MiniInfoCell>
+          <MiniInfoCell
+            before={null}
+            after={<Counter>{order.meta ? order.meta.sum : 0}</Counter>}
+          >
+            Сумма (рубли)
+          </MiniInfoCell>
+        </Div>
+        <Group header={<Header mode="secondary">Доставка</Header>}>
+
+          <Cell
+            expandable
+            onClick={() => go("cityList")}
+            indicator={deliveryCity ? deliveryCity.name : "Не выбрано"}
+          >
+            Город доставки
+          </Cell>
+          {/*{deliv !== null && (*/}
+          {/*  <Div>*/}
+          {/*    <Tabs>*/}
+          {/*      <TabsItem*/}
+          {/*        onClick={() => setWho("sdek")}*/}
+          {/*        selected={who === "sdek"}*/}
+          {/*      >*/}
+          {/*        СДЭК*/}
+          {/*      </TabsItem>*/}
+          {/*      <TabsItem onClick={() => setWho("PR")} selected={who === "PR"}>*/}
+          {/*        Почта России*/}
+          {/*      </TabsItem>*/}
+          {/*    </Tabs>*/}
+          {/*    {who === "sdek" ? (*/}
+          {/*      <Delivery*/}
+          {/*        activeCity={activeCity}*/}
+          {/*        who={who}*/}
+          {/*        fetchedUser={fetchedUser}*/}
+          {/*        order={order}*/}
+          {/*        typeDelivery={typeDelivery}*/}
+          {/*        go={go}*/}
+          {/*        activePVZ={activePVZ}*/}
+          {/*        deliv={deliv.sdek}*/}
+          {/*        sum={order.meta.sum}*/}
+          {/*        clearCart={clearCart}*/}
+          {/*        setOrders_success={setOrders_success}*/}
+          {/*        params={params}*/}
+          {/*      />*/}
+          {/*    ) : (*/}
+          {/*      <Delivery*/}
+          {/*        activeCity={activeCity}*/}
+          {/*        who={who}*/}
+          {/*        fetchedUser={fetchedUser}*/}
+          {/*        order={order}*/}
+          {/*        typeDelivery={typeDelivery}*/}
+          {/*        go={go}*/}
+          {/*        activePVZ={activePVZ}*/}
+          {/*        deliv={deliv.PR}*/}
+          {/*        sum={order.meta.sum}*/}
+          {/*        clearCart={clearCart}*/}
+          {/*        setOrders_success={setOrders_success}*/}
+          {/*        params={params}*/}
+          {/*      />*/}
+          {/*    )}*/}
+          {/*  </Div>*/}
+          {/*)}*/}
+        </Group>
+      </>
       <Footer />
       {snackbar}
     </Panel>
