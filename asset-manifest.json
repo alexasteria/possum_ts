@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/possum_ts/static/css/main.44212c57.chunk.css",
-    "main.js": "/possum_ts/static/js/main.4ff64332.chunk.js",
-    "main.js.map": "/possum_ts/static/js/main.4ff64332.chunk.js.map",
+    "main.js": "/possum_ts/static/js/main.ede4dc22.chunk.js",
+    "main.js.map": "/possum_ts/static/js/main.ede4dc22.chunk.js.map",
     "runtime-main.js": "/possum_ts/static/js/runtime-main.8fdfd873.js",
     "runtime-main.js.map": "/possum_ts/static/js/runtime-main.8fdfd873.js.map",
     "static/css/2.4df9e7ca.chunk.css": "/possum_ts/static/css/2.4df9e7ca.chunk.css",
@@ -20,6 +20,6 @@
     "static/css/2.4df9e7ca.chunk.css",
     "static/js/2.77cfdd37.chunk.js",
     "static/css/main.44212c57.chunk.css",
-    "static/js/main.4ff64332.chunk.js"
+    "static/js/main.ede4dc22.chunk.js"
   ]
 }
