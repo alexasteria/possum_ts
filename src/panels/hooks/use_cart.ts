@@ -6,7 +6,10 @@ type UseCartProps = {
     order: Order,
     clearCart: () => void,
     message: string | null,
-    onIncrementPosition: (item: OrderProductItem) => void
+    onIncrementPosition: (item: OrderProductItem) => void,
+    onDeletePosition: (item: OrderProductItem) => void,
+    changeElementVariant: (item: Product, index: number) => void,
+    onDecrementPosition: (item: OrderProductItem) => void,
 }
 const useCart: () => UseCartProps = () => {
     const [message, setMessage] = useState<string | null>(null);
@@ -60,16 +63,14 @@ const useCart: () => UseCartProps = () => {
             let sum = 0;
             let weight = 0;
             for (let key in updatedOrder.items) {
-                if (key !== "meta") {
-                    count = count + updatedOrder.items[key].count;
-                    updatedOrder.items[key].item.elements.map((el) => {
-                        if (el.active){
-                            const price = getStaticPrice(el);
-                            sum = sum + updatedOrder.items[key].count * price.price;
-                        }
-                    });
-                    weight = weight + updatedOrder.items[item.id].count * 0.7;
-                }
+                count = count + updatedOrder.items[key].count;
+                updatedOrder.items[key].item.elements.map((el) => {
+                    if (el.active){
+                        const price = getStaticPrice(el);
+                        sum = sum + updatedOrder.items[key].count * price.price;
+                    }
+                });
+                weight = weight + updatedOrder.items[item.id].count * 0.7;
             }
             updatedOrder.meta = { count: count, sum: sum, weight: weight };
             const serialized = JSON.stringify(updatedOrder);
@@ -79,65 +80,91 @@ const useCart: () => UseCartProps = () => {
             setMessage(e as string);
         }
     };
-    // const onDeletePosition = (item) => {
-    //     const updatedOrder = { ...order };
-    //     delete updatedOrder[item.id];
-    //
-    //     let count = 0;
-    //     let sum = 0;
-    //     let weight = 0;
-    //     for (let key in updatedOrder) {
-    //         if (key !== "meta") {
-    //             count = count + updatedOrder[key].count;
-    //             updatedOrder[key].item.elements.map((el) => {
-    //                 if (el.active){
-    //                     const price = getStaticPrice(el);
-    //                     sum = sum + updatedOrder[key].count * price.price;
-    //                 }
-    //             });
-    //             weight = weight + updatedOrder[key].count * 0.7;
-    //         }
-    //     }
-    //     updatedOrder.meta = { count: count, sum: sum, weight: weight };
-    //
-    //     const serialized = JSON.stringify(updatedOrder);
-    //     localStorage.setItem("orders", serialized);
-    //     setOrder(updatedOrder);
-    // };
-    // const changeCount = async (item, index) => {
-    //     const updatedOrder = { ...order };
-    //     await updatedOrder[item.id].item.elements.map((el, i) => {
-    //         el.active = i === index;
-    //     });
-    //     const maxAvailable = getMaxAvailable(item);
-    //     if (updatedOrder[item.id].count > maxAvailable) {
-    //         updatedOrder[item.id].count = maxAvailable;
-    //     }
-    //     let count = 0;
-    //     let sum = 0;
-    //     let weight = 0;
-    //     for (let key in updatedOrder) {
-    //         if (key !== "meta") {
-    //             count = count + updatedOrder[key].count;
-    //             updatedOrder[key].item.elements.map((el) => {
-    //                 if (el.active){
-    //                     const price = getStaticPrice(el);
-    //                     sum = sum + updatedOrder[key].count * price.price;
-    //                 }
-    //             });
-    //             weight = weight + updatedOrder[key].count * 0.7;
-    //         }
-    //     }
-    //     updatedOrder.meta = { count: count, sum: sum, weight: weight };
-    //     const serialized = JSON.stringify(updatedOrder);
-    //     localStorage.setItem("orders", serialized);
-    //     setOrder(updatedOrder);
-    // };
+    const onDeletePosition: (item: OrderProductItem) => void = (item) => {
+        const updatedOrder = { ...order };
+        delete updatedOrder.items[item.id];
+        let count = 0;
+        let sum = 0;
+        let weight = 0;
+        for (let key in updatedOrder.items) {
+            count = count + updatedOrder.items[key].count;
+            updatedOrder.items[key].item.elements.map((el) => {
+                if (el.active){
+                    const price = getStaticPrice(el);
+                    sum = sum + updatedOrder.items[key].count * price.price;
+                }
+            });
+            weight = weight + updatedOrder.items[key].count * 0.7;
+        }
+        updatedOrder.meta = { count: count, sum: sum, weight: weight };
+
+        const serialized = JSON.stringify(updatedOrder);
+        localStorage.setItem("orders", serialized);
+        setOrder(updatedOrder);
+    };
+    const changeElementVariant = async (item: Product, index: number) => {
+        const updatedOrder = { ...order };
+        await updatedOrder.items[item.id].item.elements.map((el, i) => {
+            el.active = i === index;
+        });
+        const maxAvailable = getMaxAvailable(item);
+        if (updatedOrder.items[item.id].count > maxAvailable) {
+            updatedOrder.items[item.id].count = maxAvailable;
+        }
+        let count = 0;
+        let sum = 0;
+        let weight = 0;
+        for (let key in updatedOrder.items) {
+            count = count + updatedOrder.items[key].count;
+            updatedOrder.items[key].item.elements.map((el) => {
+                if (el.active){
+                    const price = getStaticPrice(el);
+                    sum = sum + updatedOrder.items[key].count * price.price;
+                }
+            });
+            weight = weight + updatedOrder.items[key].count * 0.7;
+        }
+        updatedOrder.meta = { count: count, sum: sum, weight: weight };
+        const serialized = JSON.stringify(updatedOrder);
+        localStorage.setItem("orders", serialized);
+        setOrder(updatedOrder);
+    };
+    const onDecrementPosition = (item: OrderProductItem) => {
+        console.log("onDecrementPosition");
+        const updatedOrder = { ...order };
+        if (item.id in updatedOrder.items) {
+            if (updatedOrder.items[item.id].count === 1) {
+                delete updatedOrder.items[item.id];
+            } else {
+                updatedOrder.items[item.id].count--;
+            }
+        }
+        let count = 0;
+        let sum = 0;
+        let weight = 0;
+        for (let key in updatedOrder.items) {
+            count = count + updatedOrder.items[key].count;
+            updatedOrder.items[key].item.elements.map((el) => {
+                if (el.active){
+                    const price = getStaticPrice(el);
+                    sum = sum + updatedOrder.items[key].count * price.price;
+                }
+            });
+            weight = weight + updatedOrder.items[key].count * 0.7;
+        }
+        updatedOrder.meta = { count: count, sum: sum, weight: weight };
+        const serialized = JSON.stringify(updatedOrder);
+        localStorage.setItem("orders", serialized);
+        setOrder(updatedOrder);
+    };
     return {
         order: useMemo(()=>order, [order]),
         clearCart,
         message,
-        onIncrementPosition
+        onIncrementPosition,
+        onDeletePosition,
+        changeElementVariant,
+        onDecrementPosition
     }
 }
 export { useCart };

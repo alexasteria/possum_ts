@@ -6,6 +6,7 @@ import { setCategoriesList } from "./store/actions";
 import Home from "./panels/home";
 import "@vkontakte/vkui/dist/vkui.css";
 import Category from "./panels/category";
+import Cart from "./panels/cart/index"
 import {Product} from "./types";
 import AboutProduct from "./panels/about_product";
 
@@ -64,6 +65,7 @@ const App: React.FC<AppProps> = () => {
         <Home id="home" go={go} fetchedUser={fetchedUser} />
         <Category id="category" go={go} setActiveProduct={setActiveProduct}/>
         <AboutProduct id="aboutProduct" go={go} activeItem={activeProduct}/>
+        <Cart id="cart" go={go} goBack={goBack}/>
       </View>
     </ConfigProvider>
   );

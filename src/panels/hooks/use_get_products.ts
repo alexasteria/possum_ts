@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
-import {Category, Product, ReduxState} from "../../types";
+import {Category, Product, ProductElement, ReduxState} from "../../types";
 
 type UseGetProdProps = {
     products: Product[] | null,
