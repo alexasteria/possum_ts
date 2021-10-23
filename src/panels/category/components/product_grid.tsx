@@ -120,40 +120,46 @@ const ProductsGrid: React.FC<ProductGridProps> = ({ setActiveItem, go }) => {
                             size="l"
                             mode="shadow"
                         >
-                            <div
-                                onClick={() => {
-                                    setActiveItem(item);
-                                    go("aboutProduct");
-                                }}
-                                style={{
-                                    height: 250,
-                                    backgroundImage: item.image_url ? "url(" + item.image_url + ")" : undefined,
-                                    backgroundSize: "contain",
-                                    backgroundPosition: "center 35%",
-                                    backgroundRepeat: "no-repeat",
-                                    borderRadius: 13,
-                                }}
-                            />
+                            <div className="flex">
+                                <div>
+                                    <div
+                                        onClick={() => {
+                                            setActiveItem(item);
+                                            go("aboutProduct");
+                                        }}
+                                        style={{
+                                            height: 100,
+                                            minWidth: 100,
+                                            margin: "10px 25px",
+                                            backgroundImage: item.image_url ? "url(" + item.image_url + ")" : undefined,
+                                            backgroundSize: "contain",
+                                            backgroundPosition: "center 35%",
+                                            backgroundRepeat: "no-repeat",
+                                            borderRadius: 13,
+                                        }}
+                                    />
+                                    <div style={{padding: "0 10px"}}>
+                                        <Button
+                                            onClick={() => {
+                                                setActiveItem(item);
+                                                go("aboutItem");
+                                            }}
+                                            size="m"
+                                            stretched
+                                            mode="outline"
+                                        >
+                                            Подробнее
+                                        </Button>
+                                    </div>
+                                </div>
+                                <div style={{margin: "10px 10px 0 0"}}>
+                                    <Caption level="1" weight="regular">{item.detail.slice(0,180)}</Caption>
+                                </div>
+                            </div>
                             <MiniInfoCell textWrap="full" before={null}>
                                 <Title level="1" weight="regular">{item.name}</Title>
                             </MiniInfoCell>
-                            <MiniInfoCell textWrap={"nowrap"} before={null}>
-                                <Caption level="3" weight="regular">{item.detail}</Caption>
-                            </MiniInfoCell>
                             {getElements(item.elements)}
-                            <MiniInfoCell before={null}>
-                                <Button
-                                    onClick={() => {
-                                        setActiveItem(item);
-                                        go("aboutItem");
-                                    }}
-                                    size="m"
-                                    stretched
-                                    mode="outline"
-                                >
-                                    Подробнее
-                                </Button>
-                            </MiniInfoCell>
                         </Card>
                     );
                 })}
