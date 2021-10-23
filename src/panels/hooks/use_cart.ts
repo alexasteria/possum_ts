@@ -14,7 +14,7 @@ type UseCartProps = {
 const useCart: () => UseCartProps = () => {
   const [message, setMessage] = useState<string | null>(null);
   const [order, setOrder] = useState<Order>(
-    JSON.parse(localStorage.getItem("orders") || "null") || {
+    JSON.parse(localStorage.getItem("new_possum_orders") || "null") || {
       items: {},
       meta: { sum: 0, count: 0, weight: 0 },
     }
@@ -79,7 +79,7 @@ const useCart: () => UseCartProps = () => {
       }
       updatedOrder.meta = { count: count, sum: sum, weight: weight };
       const serialized = JSON.stringify(updatedOrder);
-      localStorage.setItem("orders", serialized);
+      localStorage.setItem("new_possum_orders", serialized);
       setOrder(updatedOrder);
     } catch (e) {
       setMessage(e as string);
@@ -107,7 +107,7 @@ const useCart: () => UseCartProps = () => {
     updatedOrder.meta = { count: count, sum: sum, weight: weight };
 
     const serialized = JSON.stringify(updatedOrder);
-    localStorage.setItem("orders", serialized);
+    localStorage.setItem("new_possum_orders", serialized);
     setOrder(updatedOrder);
   };
   const changeElementVariant = async (item: Product, index: number) => {
@@ -137,7 +137,7 @@ const useCart: () => UseCartProps = () => {
     }
     updatedOrder.meta = { count: count, sum: sum, weight: weight };
     const serialized = JSON.stringify(updatedOrder);
-    localStorage.setItem("orders", serialized);
+    localStorage.setItem("new_possum_orders", serialized);
     setOrder(updatedOrder);
   };
   const onDecrementPosition = (item: OrderProductItem) => {
@@ -168,12 +168,12 @@ const useCart: () => UseCartProps = () => {
     }
     updatedOrder.meta = { count: count, sum: sum, weight: weight };
     const serialized = JSON.stringify(updatedOrder);
-    localStorage.setItem("orders", serialized);
+    localStorage.setItem("new_possum_orders", serialized);
     setOrder(updatedOrder);
   };
   const clearCart: () => void = () => {
     localStorage.setItem(
-      "orders",
+      "new_possum_orders",
       JSON.stringify({ items: {}, meta: { sum: 0, weight: 0, count: 0 } })
     );
     const updatedOrder = { items: {}, meta: { sum: 0, weight: 0, count: 0 } };
