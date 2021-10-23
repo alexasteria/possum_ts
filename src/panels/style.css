@@ -50,6 +50,10 @@
     background: #007160;
 }
 
+.Panel .Panel__in {
+    background: #007160 !important;
+}
+
 .cellCart {
     background: linear-gradient(
             0.25turn,

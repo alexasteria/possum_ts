@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { setCategoriesList } from "./store/actions";
 import Home from "./panels/home";
 import "@vkontakte/vkui/dist/vkui.css";
+import Category from "./panels/category";
 
 type AppProps = {
   linkParams: any;
@@ -17,6 +18,7 @@ const App: React.FC<AppProps> = () => {
   const [popout, setPopout] = useState(null);
   const [history, setHistory] = useState<string[]>(["home"]);
   const [fetchedUser, setUser] = useState<UserInfo | null>(null);
+  const [activeProduct, setActiveProduct] = useState(null)
 
   const go = useCallback((panelName: string) => {
     const hist = [...history];
@@ -58,6 +60,7 @@ const App: React.FC<AppProps> = () => {
     <ConfigProvider>
       <View activePanel={activePanel} popout={popout} history={history}>
         <Home id="home" go={go} fetchedUser={fetchedUser} />
+        <Category id="category" go={go} setActiveProduct={setActiveProduct}/>
       </View>
     </ConfigProvider>
   );
