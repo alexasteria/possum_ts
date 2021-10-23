@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/possum/static/css/main.44212c57.chunk.css",
+    "main.js": "/possum/static/js/main.44a2ef20.chunk.js",
+    "main.js.map": "/possum/static/js/main.44a2ef20.chunk.js.map",
+    "runtime-main.js": "/possum/static/js/runtime-main.57e6e1ae.js",
+    "runtime-main.js.map": "/possum/static/js/runtime-main.57e6e1ae.js.map",
+    "static/css/2.4df9e7ca.chunk.css": "/possum/static/css/2.4df9e7ca.chunk.css",
+    "static/js/2.77cfdd37.chunk.js": "/possum/static/js/2.77cfdd37.chunk.js",
+    "static/js/2.77cfdd37.chunk.js.map": "/possum/static/js/2.77cfdd37.chunk.js.map",
+    "index.html": "/possum/index.html",
+    "static/css/2.4df9e7ca.chunk.css.map": "/possum/static/css/2.4df9e7ca.chunk.css.map",
+    "static/css/main.44212c57.chunk.css.map": "/possum/static/css/main.44212c57.chunk.css.map",
+    "static/js/2.77cfdd37.chunk.js.LICENSE.txt": "/possum/static/js/2.77cfdd37.chunk.js.LICENSE.txt",
+    "static/media/mess.d4d0a58c.png": "/possum/static/media/mess.d4d0a58c.png",
+    "static/media/pay.c8dfba86.png": "/possum/static/media/pay.c8dfba86.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.57e6e1ae.js",
+    "static/css/2.4df9e7ca.chunk.css",
+    "static/js/2.77cfdd37.chunk.js",
+    "static/css/main.44212c57.chunk.css",
+    "static/js/main.44a2ef20.chunk.js"
+  ]
+}
