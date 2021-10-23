@@ -3,15 +3,14 @@ import Icon20WorkOutline from "@vkontakte/icons/dist/20/work_outline";
 import React from "react";
 import Icon24MoneyCircle from "@vkontakte/icons/dist/24/money_circle";
 import "../../style.css";
-import {useCart} from "../../hooks/use_cart";
+import {Order} from "../../../types";
 
 type CartLineProps = {
-    go: (panel: string) => void
+    go: (panel: string) => void,
+    order: Order
 }
 
-const CartLine: React.FC<CartLineProps> = ({ go }) => {
-    const { order } = useCart();
-   // if (!order) return null;
+const CartLine: React.FC<CartLineProps> = ({ go, order }) => {
     return (
         <FixedLayout vertical={"top"}>
             <Cell
@@ -36,12 +35,12 @@ const CartLine: React.FC<CartLineProps> = ({ go }) => {
                 height={20}
                 width={20}
             />
-                        {order.meta ? order.meta.sum : 0}
+                        {order.meta.sum}
           </span>
                 }
             >
                 <Caption style={{ color: "antiquewhite" }} level="1" weight="regular">
-                    Оформить заказ: товаров - {order.meta ? order.meta.count : 0}
+                    Оформить заказ: товаров - {order.meta.count}
                 </Caption>
             </Cell>
         </FixedLayout>

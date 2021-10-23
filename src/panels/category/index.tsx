@@ -15,39 +15,39 @@ import {
 import Icon24Phone from "@vkontakte/icons/dist/24/phone";
 import Icon24LogoVk from "@vkontakte/icons/dist/24/logo_vk";
 import Icon24Linked from "@vkontakte/icons/dist/24/linked";
-//import CartLine from "./components/CartLine";
+import CartLine from "../home/components/cart_line";
 import mess from "../../img/mess.png";
 import { useCart } from "../hooks/use_cart";
 //import { getImg } from "./Home";
 import { useSelector } from "react-redux";
 import ProductsGrid from "./components/product_grid";
 import { ReduxState } from "../../types";
-import "../style.css"
+import "../style.css";
 
 export const getImg = (id: number) => {
-    switch (id) {
-        case 1:
-            return "https://zoomagasin.ru/images/im-ej-logo.png";
-        case 19:
-            return "https://zoomagasin.ru/images/im-possum-logo.png";
-        case 23:
-            return "https://zoomagasin.ru/images/im-rept-logo.png";
-        case 27:
-            return "https://zoomagasin.ru/images/im-nasek-logo.png";
-        default:
-            return "https://zoomagasin.ru/images/im-drug-logo.png";
-    }
+  switch (id) {
+    case 1:
+      return "https://zoomagasin.ru/images/im-ej-logo.png";
+    case 19:
+      return "https://zoomagasin.ru/images/im-possum-logo.png";
+    case 23:
+      return "https://zoomagasin.ru/images/im-rept-logo.png";
+    case 27:
+      return "https://zoomagasin.ru/images/im-nasek-logo.png";
+    default:
+      return "https://zoomagasin.ru/images/im-drug-logo.png";
+  }
 };
 
 type CategoryProps = {
-    id: string;
-    go: (panel: string) => void;
-    setActiveProduct: (v: any) => void;
+  id: string;
+  go: (panel: string) => void;
+  setActiveProduct: (v: any) => void;
 };
 
 const Category: React.FC<CategoryProps> = ({ id, go, setActiveProduct }) => {
   const [snackbar, setSnackbar] = useState<ReactElement | null>(null);
-  const {  message } = useCart();
+  const { message, order } = useCart();
   useEffect(() => {
     if (!message) return;
     setSnackbar(
@@ -61,7 +61,7 @@ const Category: React.FC<CategoryProps> = ({ id, go, setActiveProduct }) => {
   return (
     <Panel id={id}>
       <PanelHeader left={<PanelHeaderBack onClick={() => go("home")} />} />
-      {/*{order !== null && <CartLine go={go} order={order} />}*/}
+      <CartLine go={go} order={order} />
       <Placeholder
         icon={
           <div

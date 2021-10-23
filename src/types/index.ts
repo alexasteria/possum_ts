@@ -11,7 +11,7 @@ export type Category = {
   description: string;
 };
 
-export type Product = {
+export interface Product  {
   id: number,
   section_id: number | null,
   name: string,
@@ -22,12 +22,38 @@ export type Product = {
   quantity: number,
   quantity_reserved: number,
   image_url: string | null,
-  elements: ProductElement[] | null
+  elements: ProductElement[]
 }
+//
+// export type Product = {
+//   id: number,
+//   section_id: number | null,
+//   name: string,
+//   detail: string,
+//   weight: number,
+//   measure: number,
+//   available: "Y" | "N",
+//   quantity: number,
+//   quantity_reserved: number,
+//   image_url: string | null,
+//   elements: ProductElement[]
+// }
 
-export type ProductElement = {
+export interface ProductElement {
   id: number,
-  item: Product,
+  item: {
+    id: number,
+    section_id: number | null,
+    name: string,
+    detail: string,
+    weight: number,
+    measure: number,
+    available: "Y" | "N",
+    quantity: number,
+    quantity_reserved: number,
+    image_url: string | null,
+    elements: ProductElement[] | null
+  },
   properties: ProductElementProp[] | null,
   prices: {
     items: ProductElementPrice[] | null
@@ -47,3 +73,44 @@ export type ProductElementPrice = {
   discount_price: number | null,
   "discount_value_percents": number | null
 }
+export interface OrderProductElement extends ProductElement {
+  id: number,
+  item: {
+    id: number,
+    section_id: number | null,
+    name: string,
+    detail: string,
+    weight: number,
+    measure: number,
+    available: "Y" | "N",
+    quantity: number,
+    quantity_reserved: number,
+    image_url: string | null,
+    elements: ProductElement[] | null
+  },
+  properties: ProductElementProp[] | null,
+  prices: {
+    items: ProductElementPrice[] | null
+  }
+  active?: boolean
+}
+export interface OrderProductItem extends Product {
+  id: number,
+  section_id: number | null,
+  name: string,
+  detail: string,
+  weight: number,
+  measure: number,
+  available: "Y" | "N",
+  quantity: number,
+  quantity_reserved: number,
+  image_url: string | null,
+  elements: OrderProductElement[]
+}
+export type OrderProduct = {count: number, item: OrderProductItem}
+export type OrderMeta = {count: number; sum: number; weight: number}
+export type Order = {
+  items: {[key: number] : OrderProduct},
+  meta: OrderMeta
+}
+

@@ -13,7 +13,7 @@
 .Panel::after,
 .Tabs__in,
 .TabsItem__in,
-.Card {
+.Card, .Card__in {
     background-color: #007151;
 }
 

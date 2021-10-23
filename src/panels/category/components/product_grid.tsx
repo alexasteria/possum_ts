@@ -22,7 +22,8 @@ export const getStaticPrice: (element: ProductElement) => {price: number, sale: 
     if (price?.discount_price){
         return {price: price.discount_price, sale: `Скидка ${price.discount_value_percents}%`}
     }
-    return {price: price?.price || 0, sale: null}
+    if (!price) throw Error("Ошибка получения цены")
+    return {price: price.price, sale: null}
 }
 
 export const getElements = (elements: ProductElement[] | null) => {
@@ -122,7 +123,7 @@ const ProductsGrid: React.FC<ProductGridProps> = ({ setActiveItem, go }) => {
                             <div
                                 onClick={() => {
                                     setActiveItem(item);
-                                    go("aboutItem");
+                                    go("aboutProduct");
                                 }}
                                 style={{
                                     height: 250,

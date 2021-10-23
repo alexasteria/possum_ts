@@ -6,6 +6,8 @@ import { setCategoriesList } from "./store/actions";
 import Home from "./panels/home";
 import "@vkontakte/vkui/dist/vkui.css";
 import Category from "./panels/category";
+import {Product} from "./types";
+import AboutProduct from "./panels/about_product";
 
 type AppProps = {
   linkParams: any;
@@ -18,7 +20,7 @@ const App: React.FC<AppProps> = () => {
   const [popout, setPopout] = useState(null);
   const [history, setHistory] = useState<string[]>(["home"]);
   const [fetchedUser, setUser] = useState<UserInfo | null>(null);
-  const [activeProduct, setActiveProduct] = useState(null)
+  const [activeProduct, setActiveProduct] = useState<Product | null>(null)
 
   const go = useCallback((panelName: string) => {
     const hist = [...history];
@@ -61,6 +63,7 @@ const App: React.FC<AppProps> = () => {
       <View activePanel={activePanel} popout={popout} history={history}>
         <Home id="home" go={go} fetchedUser={fetchedUser} />
         <Category id="category" go={go} setActiveProduct={setActiveProduct}/>
+        <AboutProduct id="aboutProduct" go={go} activeItem={activeProduct}/>
       </View>
     </ConfigProvider>
   );

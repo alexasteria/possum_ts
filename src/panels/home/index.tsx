@@ -22,6 +22,7 @@ import mess from "../../img/mess.png";
 import { useDispatch, useSelector } from "react-redux";
 import { setTargetCategory } from "../../store/actions";
 import {ReduxState} from "../../types";
+import {useCart} from "../hooks/use_cart";
 const addToCommunity = async () => {
     await bridge
         .send("VKWebAppAddToCommunity", {})
@@ -49,13 +50,14 @@ type HomeProps = {
 }
 
 const Home:React.FC<HomeProps>= ({ id, go, fetchedUser }) => {
+    const {order} = useCart()
     const dispatch = useDispatch();
     const categories = useSelector((state: ReduxState) => state.categories);
     if (!categories) return null;
     return (
         <Panel id={id}>
             <PanelHeader />
-            <CartLine go={go} />
+            <CartLine go={go} order={order}/>
             <Group
                 style={{ paddingTop: 50 }}
                 header={<Header mode="secondary">Почему мы?</Header>}
