@@ -1,7 +1,8 @@
 export type ReduxState = {
   categories: Category[] | null;
   targetCategory: Category | null;
-  deliveryCity: City | null
+  deliveryCity: City | null;
+  deliveryInfo: DeliveryInfo | null
 };
 
 export type Category = {
@@ -122,3 +123,20 @@ export type City = {
   country: string;
   postal: string;
 };
+
+export type DeliveryInfo = {
+  sdek: {
+    price: string,
+    deliveryPeriodMin: number,
+    deliveryPeriodMax: number,
+    deliveryDateMin: string,
+    deliveryDateMax: string,
+    tariffId: number,
+    priceByCurrency: number,
+    currency: string
+  },
+  PR: {
+    price: number,
+    deliveryDateMax: string
+  }
+}

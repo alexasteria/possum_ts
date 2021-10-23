@@ -1,10 +1,11 @@
-import {Action, GET_CATEGORIES, SET_CATEGORY, SET_DELIVERY_CITY} from "./actions";
+import {Action, GET_CATEGORIES, SET_CATEGORY, SET_DELIVERY_CITY, SET_DELIVERY_INFO} from "./actions";
 import {ReduxState} from "../types";
 
 const initialState: ReduxState = {
   categories: null,
   targetCategory: null,
-  deliveryCity: null
+  deliveryCity: null,
+  deliveryInfo: null
 };
 export const reducer = (state = initialState, action: Action) => {
   switch (action.type) {
@@ -14,6 +15,8 @@ export const reducer = (state = initialState, action: Action) => {
       return { ...state, targetCategory: action.payload };
     case SET_DELIVERY_CITY:
       return { ...state, deliveryCity: action.payload };
+    case SET_DELIVERY_INFO:
+      return { ...state, deliveryInfo: action.payload };
     default:
       return state;
   }

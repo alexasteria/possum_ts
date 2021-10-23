@@ -40,12 +40,6 @@
     color: #a5eaa5;
 }
 
-.Tappable .TabsItem__in {
-    border: 1px solid #fff;
-    padding: 5px;
-    border-radius: 10px;
-}
-
 .Tappable--ios.Tappable--active:not([disabled]):not(.TabsItem):not(.PanelHeaderButton):not(.Button):not(.PanelHeaderContent__in):not(.ActionSheetItem):not(.Banner__in) {
     background: #007160;
 }

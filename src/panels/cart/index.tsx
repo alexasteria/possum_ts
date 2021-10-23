@@ -18,8 +18,9 @@ import "../style.css";
 import Icon56ArticleOutline from "@vkontakte/icons/dist/56/article_outline";
 import CartListProductsProps from "./components/cart_list_products";
 import { useCart } from "../hooks/use_cart";
-import {useSelector} from "react-redux";
-import {ReduxState} from "../../types";
+import { useSelector } from "react-redux";
+import { ReduxState } from "../../types";
+import Delivery from "../category/components/delivery";
 
 type CartProps = {
   id: string;
@@ -29,7 +30,7 @@ type CartProps = {
 
 const Cart: React.FC<CartProps> = ({ id, go, goBack }) => {
   const [snackbar, setSnackbar] = useState<ReactElement | null>(null);
-    const deliveryCity = useSelector((state: ReduxState) => state.deliveryCity);
+  const deliveryCity = useSelector((state: ReduxState) => state.deliveryCity);
   const {
     order,
     message,
@@ -37,6 +38,7 @@ const Cart: React.FC<CartProps> = ({ id, go, goBack }) => {
     onIncrementPosition,
     onDecrementPosition,
     onDeletePosition,
+      clearCart
   } = useCart();
   useEffect(() => {
     if (!message) return;
@@ -97,7 +99,6 @@ const Cart: React.FC<CartProps> = ({ id, go, goBack }) => {
           </MiniInfoCell>
         </Div>
         <Group header={<Header mode="secondary">Доставка</Header>}>
-
           <Cell
             expandable
             onClick={() => go("cityList")}
@@ -105,52 +106,7 @@ const Cart: React.FC<CartProps> = ({ id, go, goBack }) => {
           >
             Город доставки
           </Cell>
-          {/*{deliv !== null && (*/}
-          {/*  <Div>*/}
-          {/*    <Tabs>*/}
-          {/*      <TabsItem*/}
-          {/*        onClick={() => setWho("sdek")}*/}
-          {/*        selected={who === "sdek"}*/}
-          {/*      >*/}
-          {/*        СДЭК*/}
-          {/*      </TabsItem>*/}
-          {/*      <TabsItem onClick={() => setWho("PR")} selected={who === "PR"}>*/}
-          {/*        Почта России*/}
-          {/*      </TabsItem>*/}
-          {/*    </Tabs>*/}
-          {/*    {who === "sdek" ? (*/}
-          {/*      <Delivery*/}
-          {/*        activeCity={activeCity}*/}
-          {/*        who={who}*/}
-          {/*        fetchedUser={fetchedUser}*/}
-          {/*        order={order}*/}
-          {/*        typeDelivery={typeDelivery}*/}
-          {/*        go={go}*/}
-          {/*        activePVZ={activePVZ}*/}
-          {/*        deliv={deliv.sdek}*/}
-          {/*        sum={order.meta.sum}*/}
-          {/*        clearCart={clearCart}*/}
-          {/*        setOrders_success={setOrders_success}*/}
-          {/*        params={params}*/}
-          {/*      />*/}
-          {/*    ) : (*/}
-          {/*      <Delivery*/}
-          {/*        activeCity={activeCity}*/}
-          {/*        who={who}*/}
-          {/*        fetchedUser={fetchedUser}*/}
-          {/*        order={order}*/}
-          {/*        typeDelivery={typeDelivery}*/}
-          {/*        go={go}*/}
-          {/*        activePVZ={activePVZ}*/}
-          {/*        deliv={deliv.PR}*/}
-          {/*        sum={order.meta.sum}*/}
-          {/*        clearCart={clearCart}*/}
-          {/*        setOrders_success={setOrders_success}*/}
-          {/*        params={params}*/}
-          {/*      />*/}
-          {/*    )}*/}
-          {/*  </Div>*/}
-          {/*)}*/}
+          <Delivery order={order} clearCart={clearCart}/>
         </Group>
       </>
       <Footer />

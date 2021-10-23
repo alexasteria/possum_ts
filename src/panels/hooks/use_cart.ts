@@ -16,11 +16,6 @@ const useCart: () => UseCartProps = () => {
     const [order, setOrder] = useState<Order>(
         JSON.parse(localStorage.getItem("orders") || "null") || {items: {}, meta: {sum: 0, count: 0, weight: 0}}
     );
-    const clearCart = () => {
-        localStorage.setItem("orders", JSON.stringify({items: {}, meta: {sum: 0, count: 0, weight: 0}}));
-        const updatedOrder = {items: {}, meta: {sum: 0, count: 0, weight: 0}};
-        setOrder(updatedOrder);
-    };
     // const sendMessage = (value: string) => {
     //     setMessage(value);
     // };
@@ -157,6 +152,11 @@ const useCart: () => UseCartProps = () => {
         localStorage.setItem("orders", serialized);
         setOrder(updatedOrder);
     };
+    const clearCart: () => void = () => {
+        localStorage.setItem("orders", JSON.stringify({items: {}, meta: {sum: 0, weight: 0, count: 0}}));
+        const updatedOrder = {items: {}, meta: {sum: 0, weight: 0, count: 0}};
+        setOrder(updatedOrder);
+    };
     return {
         order: useMemo(()=>order, [order]),
         clearCart,
@@ -164,7 +164,7 @@ const useCart: () => UseCartProps = () => {
         onIncrementPosition,
         onDeletePosition,
         changeElementVariant,
-        onDecrementPosition
+        onDecrementPosition,
     }
 }
 export { useCart };
