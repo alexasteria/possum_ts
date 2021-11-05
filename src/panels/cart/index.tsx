@@ -31,7 +31,7 @@ type CartProps = {
 
 const Cart: React.FC<CartProps> = ({ id, go, goBack }) => {
   const [snackbar, setSnackbar] = useState<ReactElement | null>(null);
-  const [access, setAccess] = useState(false);
+  const [access, setAccess] = useState(true);
   const deliveryCity = useSelector((state: ReduxState) => state.deliveryCity);
   const {
     order,
