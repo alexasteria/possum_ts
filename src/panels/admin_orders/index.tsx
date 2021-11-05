@@ -131,7 +131,7 @@ const AdminOrders: React.FC<AdminOrdersProps> = ({ go, id, fetchedUser }) => {
                   mode="outline"
                   onClick={() => changeOrder(order)}
                 >
-                  Сохранить
+                  Сохранить (будет отправлено сообщение клиенту о статусе и трек-коде (если указан))
                 </Button>
               </Div>
             </Div>
