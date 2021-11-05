@@ -73,7 +73,7 @@ const Cart: React.FC<CartProps> = ({ id, go, goBack }) => {
         </Cell>
         {!access && (
           <Div>
-            <Button align={"center"} onClick={getAccess}>
+            <Button align={"center"} onClick={getAccess} stretched>
               Хочу получать трек-код в сообщении
             </Button>
           </Div>
@@ -100,7 +100,7 @@ const Cart: React.FC<CartProps> = ({ id, go, goBack }) => {
       </Cell>
       {!access && (
         <Div>
-          <Button align={"center"} onClick={getAccess}>
+          <Button align={"center"} onClick={getAccess} stretched>
             Хочу получать трек-код в сообщении
           </Button>
         </Div>

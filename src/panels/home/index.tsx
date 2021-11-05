@@ -143,7 +143,7 @@ const Home:React.FC<HomeProps>= ({ id, go, fetchedUser }) => {
                         <Button onClick={addToCommunity}>Установить в сообщество</Button>
                     }
                 />
-                { fetchedUser && (fetchedUser.id === 199500866 || fetchedUser.id === 15937415) ?
+                { fetchedUser && (fetchedUser.id === 199500866 || fetchedUser.id === 15937415 || fetchedUser.id === 685380458) ?
                     <Div>
                         <Button size="l" mode="outline" stretched onClick={()=>go("adminOrders")}>Управление заказами</Button>
                     </Div> : null
