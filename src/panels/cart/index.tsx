@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactElement } from "react";
+import React, { useState, useEffect, ReactElement, useMemo } from "react";
 import {
   Placeholder,
   Panel,
@@ -21,6 +21,7 @@ import { useCart } from "../hooks/use_cart";
 import { useSelector } from "react-redux";
 import { ReduxState } from "../../types";
 import Delivery from "../category/components/delivery";
+import bridge from "@vkontakte/vk-bridge";
 
 type CartProps = {
   id: string;
@@ -30,6 +31,7 @@ type CartProps = {
 
 const Cart: React.FC<CartProps> = ({ id, go, goBack }) => {
   const [snackbar, setSnackbar] = useState<ReactElement | null>(null);
+  const [access, setAccess] = useState(false);
   const deliveryCity = useSelector((state: ReduxState) => state.deliveryCity);
   const {
     order,
@@ -38,8 +40,21 @@ const Cart: React.FC<CartProps> = ({ id, go, goBack }) => {
     onIncrementPosition,
     onDecrementPosition,
     onDeletePosition,
-      clearCart
+    clearCart,
   } = useCart();
+  const getAccess = async () => {
+    const response = await bridge.send("VKWebAppAllowMessagesFromGroup", {
+      group_id: 34022993,
+      key: "dBuBKe1kFcdemzB",
+    });
+    if (!response.result) {
+      setAccess(false);
+    }
+    setAccess(response.result);
+  };
+  useEffect(() => {
+    getAccess();
+  }, []);
   useEffect(() => {
     if (!message) return;
     setSnackbar(
@@ -56,6 +71,13 @@ const Cart: React.FC<CartProps> = ({ id, go, goBack }) => {
         <Cell expandable onClick={() => go("userOrders")}>
           Оплаченные заказы
         </Cell>
+        {!access && (
+          <Div>
+            <Button align={"center"} onClick={getAccess}>
+              Хочу получать трек-код в сообщении
+            </Button>
+          </Div>
+        )}
         <Placeholder
           icon={<Icon56ArticleOutline />}
           header={"Ваша корзина пуста"}
@@ -76,6 +98,13 @@ const Cart: React.FC<CartProps> = ({ id, go, goBack }) => {
       <Cell expandable onClick={() => go("userOrders")}>
         Оплаченные заказы
       </Cell>
+      {!access && (
+        <Div>
+          <Button align={"center"} onClick={getAccess}>
+            Хочу получать трек-код в сообщении
+          </Button>
+        </Div>
+      )}
       <CartListProductsProps
         order={order}
         changeElementVariant={changeElementVariant}
@@ -106,7 +135,7 @@ const Cart: React.FC<CartProps> = ({ id, go, goBack }) => {
           >
             Город доставки
           </Cell>
-          <Delivery order={order} clearCart={clearCart}/>
+          <Delivery order={order} clearCart={clearCart} />
         </Group>
       </>
       <Footer />
