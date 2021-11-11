@@ -16,6 +16,7 @@ const Delivery: React.FC<{ order: Order; clearCart: () => void }> = ({
 }) => {
   const dispatch = useDispatch();
   const deliveryCity = useSelector((state: ReduxState) => state.deliveryCity);
+  const deliveryInfo = useSelector((state: ReduxState) => state.deliveryInfo);
   const [typeDelivery, setTypeDelivery] = useState<DeliveryTypes>(
     DeliveryTypes.SDEK
   );
@@ -55,20 +56,24 @@ const Delivery: React.FC<{ order: Order; clearCart: () => void }> = ({
   return (
     <Div>
       <Tabs>
-        <TabsItem
-          onClick={() => setTypeDelivery(DeliveryTypes.SDEK)}
-          selected={typeDelivery === DeliveryTypes.SDEK}
-        >
-          СДЭК
-        </TabsItem>
-        <TabsItem
-          onClick={() => setTypeDelivery(DeliveryTypes.POST_RUSSIA)}
-          selected={typeDelivery === DeliveryTypes.POST_RUSSIA}
-        >
-          Почта России
-        </TabsItem>
+        {deliveryInfo?.sdek && (
+          <TabsItem
+            onClick={() => setTypeDelivery(DeliveryTypes.SDEK)}
+            selected={typeDelivery === DeliveryTypes.SDEK}
+          >
+            СДЭК
+          </TabsItem>
+        )}
+        {deliveryInfo?.PR && (
+          <TabsItem
+            onClick={() => setTypeDelivery(DeliveryTypes.POST_RUSSIA)}
+            selected={typeDelivery === DeliveryTypes.POST_RUSSIA}
+          >
+            Почта России
+          </TabsItem>
+        )}
       </Tabs>
-      <Pay typeDelivery={typeDelivery} order={order} clearCart={clearCart}/>
+      <Pay typeDelivery={typeDelivery} order={order} clearCart={clearCart} />
     </Div>
   );
 };

@@ -31,15 +31,19 @@ const Pay: React.FC<{
   const dPrice = useMemo(() => {
     if (!deliveryInfo) return 0;
     if (typeDelivery === DeliveryTypes.SDEK) {
+      if (!deliveryInfo.sdek) throw Error('wrong sdek delivery')
       return Math.round(Number(deliveryInfo.sdek.price));
     }
+    if (!deliveryInfo.PR) throw Error('wrong PR delivery')
     return Math.round(deliveryInfo.PR.price);
   }, [deliveryInfo, typeDelivery]);
   const dTerm = useMemo(() => {
     if (!deliveryInfo) return "";
     if (typeDelivery === DeliveryTypes.SDEK) {
+      if (!deliveryInfo.sdek) throw Error('wrong sdek delivery')
       return `${deliveryInfo.sdek.deliveryPeriodMin} - ${deliveryInfo.sdek.deliveryPeriodMax} дн.`;
     }
+    if (!deliveryInfo.PR) throw Error('wrong PR delivery')
     return deliveryInfo.PR.deliveryDateMax;
   }, [deliveryInfo, typeDelivery]);
   const orderSumWithDelivery = useMemo(() => {

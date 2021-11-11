@@ -126,7 +126,7 @@ export type City = {
 };
 
 export type DeliveryInfo = {
-  sdek: {
+  sdek?: {
     price: string;
     deliveryPeriodMin: number;
     deliveryPeriodMax: number;
@@ -136,7 +136,7 @@ export type DeliveryInfo = {
     priceByCurrency: number;
     currency: string;
   };
-  PR: {
+  PR?: {
     price: number;
     deliveryDateMax: string;
   };
